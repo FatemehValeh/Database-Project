@@ -12,7 +12,6 @@ mydb = mysql.connector.connect(
 cursor = mydb.cursor()
 
 show_main_menu = True
-step = 0
 sign_up_successfully = False
 doctor_sign_up_successfully = False
 nurse_sign_up_successfully = False
@@ -22,7 +21,6 @@ create_new_vaccination_center_successfully = False
 
 def print_first_menu():
     print("Please Choose\n1)Sign up \n2)Log in")
-
 
 
 def print_general_menu():
