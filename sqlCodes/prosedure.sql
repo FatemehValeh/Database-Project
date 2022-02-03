@@ -1,14 +1,11 @@
 create procedure sign_up(u_national_id char(10), u_password varchar(512), u_name varchar(512),
 u_family_name varchar(512), u_gender varchar(6), u_birthday date, u_special_disease varchar(3))
 begin
-    start transaction ;
         insert into person(national_id, password, creation_date, name, family_name, gender, birthday, special_disease)
          values (u_national_id, u_password, current_timestamp, u_name, u_family_name, u_gender, u_birthday, u_special_disease);
     signal sqlstate '45000' set message_text = 'sign up successful';
-    commit ;
-
 end;
-drop procedure sign_up;
+
 create procedure log_in(u_national_id char(10), n_password varchar(512))
 begin
     declare last_password varchar(512);
@@ -24,7 +21,7 @@ begin
     end if;
 end;
 call log_in('8888888888', '1234567j');
-drop procedure log_in;
+
 
 create procedure add_doctor(d_national_id char(10), d_medical_id char(5))
 begin
@@ -52,26 +49,29 @@ begin
 end;
 call create_new_vaccination_center('06', 'Pasdaran', '128');
 call create_new_vaccination_center('Azadi', 'Azadi', '200');
---
+
+
 create procedure delete_account(u_national_id char(10))
 begin
     delete from person where national_id = u_national_id;
 end;
 call delete_account('8888888888');
---
+
+
 create procedure create_new_vaccine(n_serial_number char(12),n_brand_name varchar(512),n_production_date date, n_dose int)
 begin
     insert into vaccine values (n_serial_number, n_brand_name, n_production_date, n_dose);
 end;
 call create_new_vaccine('123456789100', 'Pfizer', '2022-1-24', 3);
---
+
+
 create procedure visit_profile(in u_national_id char(10))
 begin
     select * from person where national_id = u_national_id;
 end;
 call visit_profile('0123456789');
---
-drop procedure visit_profile;
+
+
 create procedure create_new_injection(u_national_id char(10), n_vaccination_center varchar(512), n_vaccine_serial_number char(12), n_nursing_id  char(8))
 begin
     insert into injection (national_id, vaccination_center, vaccine_serial_number, nursing_id) values (u_national_id, n_vaccination_center, n_vaccine_serial_number, n_nursing_id);
@@ -79,17 +79,15 @@ end;
 call create_new_injection('0123456789', '06', '123456789123', '88888888');
 call create_new_injection('9999999999', '06', '123456789123', '88888888');
 call create_new_injection('8888888888', 'Azadi', '123456789123', '88888888');
-delete
-from injection
-where national_id = '8888888888';
---
+
+
 
 create procedure change_password(u_national_id char(10), new_password varchar(512))
 begin
     update person set password = new_password where national_id = u_national_id;
 end;
 call change_password('8888888888', '1234567j');
---
+
 
 create procedure score(u_national_id char(10), center_name varchar(512), u_rate int)
 begin
@@ -98,8 +96,7 @@ end;
 call score('0123456789', '06', 5);
 call score('9999999999', '06', 3);
 call score('8888888888', 'Azadi', 1);
---
-delete from score where rate=1;
+
 
 create view center_scores as
     select vaccination_center, avg(rate) as avg_score
@@ -119,35 +116,3 @@ create view all_vaccinated as
     from injection;
 
 
-# to do
-create procedure brand_vaccinated_number()
-begin
-    declare dose_injected integer;
-    declare count integer;
-    select name from brand
-    select national_id from injection as inj
-    (
-        select count(vaccine_serial_number) from injection as i where i.national_id =)
-end;
-
-
-
-select count (national_id) from injection as inj
-(select dose from vaccine where inj.serial_number = vaccine.serial_number)
-###
-
-
-
-drop view center_scores;
-call add_doctor('0123456768', '11111');
-call sign_up('8888888888', 'mypass5678', 'ahmad', 'fekri', 'male', '1360-7-12', 'no');
-call add_nurse('8888888888', 'supervisor', '88888888');
-insert into injection (national_id, vaccination_center, vaccine_serial_number, date, nursing_id)
-values ('0123456768', 'Azadi', '123456789100', '2022-1-25', '88888888');
-
-create procedure foo(name varchar(512))
-begin
-    select dose from vaccine where brand_name = name;
-end;
-call foo('Pfizer');
-drop procedure foo;

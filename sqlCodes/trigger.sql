@@ -1,4 +1,3 @@
-
 create trigger check_signup_information before insert on person
 for each row
     begin
@@ -111,7 +110,7 @@ create trigger check_new_injection before insert on injection
             set NEW.date = current_timestamp();
         end if;
     end;
-drop trigger check_new_injection;
+
 create trigger check_new_password before update on person
     for each row
     begin
