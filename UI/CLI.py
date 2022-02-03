@@ -30,29 +30,6 @@ def print_general_menu():
           "ratings\ne)Show daily injections\nf)Vaccinated number of each brand and total vaccinated number\ng)Show "
           "the rate of vaccination center of each brand\nh)Rate of proper centers\ni)HOME PAGE")
 
-my_input = ['']
-sum = 0
-# user_national_id = '4444444444'
-# my_input = [user_national_id]
-# cursor.callproc('get_brand_name', my_input)
-# for result in cursor.stored_results():
-#     res = result.fetchall()
-# for item in res:
-#     user_vaccine_brand_name = item[0]
-# my_input = [user_vaccine_brand_name]
-# cursor.callproc('get_proper_centers', my_input)
-# for result in cursor.stored_results():
-#     res = result.fetchall()
-# for item in res:
-#     print(Fore.LIGHTBLUE_EX, item[0], Fore.RESET)
-
-# cursor.execute("select brand_name from vaccine")
-# res = cursor.fetchall()
-# print(res)
-# for x in cursor:
-#     print(x)
-
-
 
 print("Welcome to Vaccination Center.")
 
